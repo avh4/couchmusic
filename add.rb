@@ -20,8 +20,8 @@ module BasicInfo
         :channels => ref.audio_properties.channels,
         :sample_rate => ref.audio_properties.sample_rate,
         :title  => tag.title,
-        :album  => tag.artist,
-        :artist => tag.album,
+        :album  => tag.album,
+        :artist => tag.artist,
         :track  => tag.track,
         :year   => tag.year
       }
