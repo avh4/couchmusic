@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+
+require 'couchmusic/add'
+Couchmusic::Add.perform
