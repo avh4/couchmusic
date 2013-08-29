@@ -1,0 +1,9 @@
+{
+    "name": "couchmusic",
+    "version": "0.0.0",
+    "description": "The simplest possible app",
+    "attachments": ["index.html"],
+    "dependencies": {
+        "attachments": null       
+    }
+}
