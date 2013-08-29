@@ -16,5 +16,6 @@ Gem::Specification.new do |s|
   s.add_dependency('couchrest', '~> 1.2')
   s.add_dependency('taglib-ruby', '~> 0.6')
 
-  s.files       += Dir.glob("lib/**/*")
+  s.require_path = 'src/main/ruby'
+  s.files       += Dir.glob("src/main/ruby/**/*")
 end
