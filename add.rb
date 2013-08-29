@@ -4,14 +4,17 @@ require 'json'
 require 'couchrest'
 require 'taglib'
 require 'colorize'
+require 'system_keychain'
 
 @config = JSON.parse(IO.read(ENV['HOME']+'/.couchmusic.json'), :symbolize_names => true)
 
-pass, user = `security find-generic-password -s couchmusic -g 2>&1`.match(/password: "([^"]*)".*acct"<blob>="([^"]*)"/m).captures
-@db = CouchRest.database!(@config[:db].sub('http://',"http://#{user}:#{pass}@"))
+@db = Keychain.authorize_url("couchmusic", @config[:db]) do |auth_url|
+  CouchRest.database!(auth_url)
+end
 
 module BasicInfo
-  def self.gather(file)
+  def self.gather(id)
+    hostname, file = id.split(':', 2)
     TagLib::FileRef.open(file) do |ref|
       tag = ref.tag
       {
@@ -29,16 +32,24 @@ module BasicInfo
   end
 end
 
-hostname = `hostname`.strip
-Dir.glob('./**/*.mp3') do |file|
-  id = "#{hostname}:#{File.realpath(file)}"
-  begin
-    @db.get(id)
-    puts "Found #{id}".white
-  rescue RestClient::ResourceNotFound => e
-    song = { "_id" => id }
-    song.merge! BasicInfo.gather(file)
-    @db.save_doc(song)
-    puts "Adding #{id}".green
+module LocalFiles
+  def self.visit(db, &block)
+    hostname = `hostname`.strip
+    Dir.glob('./**/*.mp3') do |file|
+      id = "#{hostname}:#{File.realpath(file)}"
+      begin
+        db.get(id)
+        puts "Found #{id}".white
+      rescue RestClient::ResourceNotFound => e
+        song = { "_id" => id }
+        new_data = yield id
+        song.merge! new_data
+        db.save_doc(song)
+        puts "Adding #{id}".green
+      end
+    end
   end
 end
+
+LocalFiles.visit(@db) {|id| BasicInfo.gather(id)}
+

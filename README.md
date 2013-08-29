@@ -7,7 +7,7 @@ to your CouchDB database.
 Run the following command to set the CouchDB username and password that
 couchmusic will use to connect to the database:
 
-    (read -p User: USER; read -sp Password: PASS; echo; security add-generic-password -s couchmusic -a $USER -p $PASS -U)
+    (read -p User: USER; read -sp Password: PASS; echo; security add-generic-password -s $COUCHDB -l couchmusic -a $USER -p $PASS -U)
 
 
 ## Generated CouchApp
