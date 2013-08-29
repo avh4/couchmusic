@@ -3,7 +3,13 @@
     "version": "0.0.0",
     "description": "The simplest possible app",
     "attachments": ["index.html"],
+    "modules": ["src/main/js"],
+    "load": "src/main/js/app",
     "dependencies": {
-        "attachments": null       
+        "attachments": null,
+        "modules": null,
+        "properties": null,
+        "db": null,
+        "jquery": null
     }
 }
