@@ -1,5 +1,14 @@
-<h1>Hello, world!</h1>
+<h1>CouchMusic</h1>
 
+<h3>Reports</h3>
+<form method="GET" action="_list/missing/track_identity">
+  See missing files
+  <input type="input" name="from" value="mercury"/>
+  <input type="input" name="to" value="venus"/>
+  <input type="submit"/>
+</form>
+
+<h3>Albums</h3>
 <ul id="albums"></ul>
 
 <script type="text/javascript" src="modules.js"></script>

@@ -12,8 +12,12 @@ module Couchmusic
     @data = Couchmusic::Data::BasicInfo
 
     def self.perform()
-      db = Keychain.authorize_url("couchmusic", @config[:db]) do |auth_url|
-        CouchRest.database!(auth_url)
+      begin
+        db = CouchRest.database!(@config[:db])
+      rescue StandardError
+        db = Keychain.authorize_url("couchmusic", @config[:db]) do |auth_url|
+          CouchRest.database!(auth_url)
+        end
       end
 
       @visitor.visit(db) {|id| @data.gather(id)}
