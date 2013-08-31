@@ -1,4 +1,5 @@
 SCRATCH_DB = 'http://localhost:5984/couchmusic-scratch'
+LOCAL_DB = 'http://localhost:5984/couchmusic'
 
 task :default => [:test, :install]
 
@@ -15,6 +16,11 @@ end
 desc "Run tests"
 task :test do
   sh 'cucumber src/features/'
+end
+
+desc "Deploy locally"
+task :deploy do
+  sh "kanso push #{LOCAL_DB}"
 end
 
 namespace :scratch do
