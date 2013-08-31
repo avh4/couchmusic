@@ -119,7 +119,7 @@ exports.lists = {
       while(row = getRow()) {
         var identity = row.key[0];
         var source = row.key[1];
-        if (!lastRow || lastRow.key[0] != identity) {
+        if (!lastRow || toJSON(lastRow.key[0]) != toJSON(identity)) {
           processRow();
           nextRow(row);
         }
