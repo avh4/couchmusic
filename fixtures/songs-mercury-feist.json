@@ -6,6 +6,9 @@
      "album": "Metals",
      "artist": "Feist",
      "track": 4,
-     "year": 2011
+     "year": 2011,
+
+     "library": "mercury",
+     "library_path": "/Feist-Metals-04.mp3"
   }
 ]

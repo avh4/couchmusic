@@ -1,18 +1,17 @@
-require 'couchmusic/add'
+require 'couchmusic/runner'
 
-describe Couchmusic::Add do
+describe Couchmusic::Runner do
   let(:db) { double(:db) }
-  let(:config_json) { { db: '__DATABASE_URL__'}}
-  let(:config) { double(:config, json: config_json) }
+  let(:config) { double(:config) }
   let(:visitor) { double(:visitor) }
   let(:datas) { [
     double(:data1, gather: { data1: 'YES' }),
     double(:data2, gather: { data2: 'NO' })
   ] }
-  subject { Couchmusic::Add.new(config, visitor, datas) }
+  subject { Couchmusic::Runner.new(config, visitor, datas) }
 
   before do
-    CouchRest.stub(:database!).and_return(db)
+    Couchmusic::Database.stub(:connect).and_return(db)
     visitor.stub(:visit) do |&block|
       @doc1_result = block.call('HOST', 'FILE_1')
     end

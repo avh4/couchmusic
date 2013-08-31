@@ -9,6 +9,7 @@ Gem::Specification.new do |s|
   s.homepage    = 'http://github.com/avh4/couchmusic'
   s.license     = 'MIT'
 
+  s.executables << 'couchmusic'
   s.executables << 'couchmusic-add'
   s.executables << 'couchmusic-server'
 

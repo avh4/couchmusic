@@ -133,16 +133,19 @@ exports.lists = {
   errors: function(head, req) {
     provides("html", function() {
       var lastError = null;
+      var errors = [];
       while(row = getRow()) {
         error = row.key[0];
         if (lastError != error) {
           if (lastError) send('</ul>');
-          send('<h2>' + error + '</h2><ul>\n');
+          send('<a name="' + error + '"><h2>' + error + '</h2></a><ul>\n');
           lastError = error;
+          errors.push(error);
         }
         send('<li><b>' + row.key[1] + '</b> <code>' + toJSON(row.value) + '</code></li>');
       }
       if (lastError) send('</ul>');
+      send('<div class="top"><ul>' + errors.map(function(e) { return '<li><a href="#' + e + '">' + e + '</a></li>' }).join('') + '</ul></div>')
     });
   }
 };

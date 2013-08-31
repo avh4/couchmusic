@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require 'couchmusic/commands'
+puts ARGV.first
+Couchmusic::Commands.send(ARGV.first).perform
