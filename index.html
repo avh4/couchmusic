@@ -1,16 +1,35 @@
+<head>
+  <script type="text/javascript" src="lib/jquery-2.0.3.min.js"></script>
+  <script type="text/javascript" src="lib/typeahead.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $('input.libraries').typeahead({
+        name: 'libraries',
+        prefetch: '_list/typeahead/libraries?group=true'
+      });
+    });
+  </script>
+  <style>
+    .tt-dropdown-menu { width: 100%; background: gray; }
+    .tt-dropdown-menu p { margin: 0; }
+    .tt-is-under-cursor { background: yellow; }
+  </style>
+</head>
+
+<body>
 <h1>CouchMusic</h1>
 
 <h3>Reports</h3>
 <form method="GET" action="_list/missing/track_identity">
   See missing tracks
-  <input type="input" name="from" value="mercury"/>
-  <input type="input" name="to" value="venus"/>
+  <input class="libraries" type="text" name="from"/>
+  <input class="libraries" type="text" name="to"/>
   <input type="submit"/>
 </form>
 <form method="GET" action="_list/missing/album_identity">
   See missing albums
-  <input type="input" name="from" value="mercury"/>
-  <input type="input" name="to" value="venus"/>
+  <input class="libraries" type="text" name="from"/>
+  <input class="libraries" type="text" name="to"/>
   <input type="hidden" name="group" value="true"/>
   <input type="submit"/>
 </form>
@@ -33,3 +52,5 @@
         }
     });
 </script> -->
+
+</body>

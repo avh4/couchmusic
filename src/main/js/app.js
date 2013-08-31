@@ -35,7 +35,7 @@ exports.views = {
   track_identity: {
     map: function(doc) {
       var identifier = [doc.artist, doc.album, doc.track];
-      var library = doc._id.split(":")[0];
+      var library = doc.library;
       emit([identifier, library], true);
     }
   },
@@ -43,16 +43,36 @@ exports.views = {
   album_identity: {
     map: function(doc) {
       var identifier = [doc.artist, doc.album];
-      var library = doc._id.split(":")[0];
+      var library = doc.library;
       emit([identifier, library], identifier);
     },
     reduce: function(keys, values) {
       return values[0];
     }
+  },
+
+  libraries: {
+    map: function(doc) {
+      if (doc.library) emit(doc.library, doc.library_path);
+      else emit("_no_library", doc._id);
+    },
+    reduce: function(keys, values) {
+      if (keys) return keys.length
+      else return sum(values);
+    }
   }
 };
 
 exports.lists = {
+  typeahead: function(head, req) {
+    var c = '[';
+    while(row = getRow()) {
+      send(c + toJSON(row.key));
+      c = ',';
+    }
+    send(']');
+  },
+
   missing: function(head, req) {
     function makeHeader(fromName, toName) {
       return "<h2>Files missing from " + toName + "</h2><ul>";

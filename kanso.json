@@ -2,14 +2,17 @@
     "name": "couchmusic",
     "version": "0.0.0",
     "description": "The simplest possible app",
-    "attachments": ["index.html"],
+    "attachments": [
+      "index.html",
+      "lib/jquery-2.0.3.min.js",
+      "lib/typeahead.min.js"
+    ],
     "modules": ["src/main/js"],
     "load": "src/main/js/app",
     "dependencies": {
         "attachments": null,
         "modules": null,
         "properties": null,
-        "db": null,
-        "jquery": null
+        "db": null
     }
 }
