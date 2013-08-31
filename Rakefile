@@ -15,6 +15,7 @@ end
 
 desc "Run tests"
 task :test do
+  sh 'rspec src/test/ruby/'
   sh 'cucumber src/features/'
 end
 

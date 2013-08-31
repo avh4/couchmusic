@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
   s.add_dependency('taglib-ruby', '~> 0.6')
 
   s.add_development_dependency('cucumber', '~> 1.3')
-  s.add_development_dependency('rspec-expectations', '~> 2.14')
+  s.add_development_dependency('rspec', '~> 2.14')
   s.add_development_dependency('mechanize', '~> 2.7')
 
   s.require_path = 'src/main/ruby'

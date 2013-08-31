@@ -2,9 +2,14 @@ require 'json'
 
 module Couchmusic
   module Config
-    @json = JSON.parse(IO.read(ENV['HOME']+'/.couchmusic.json'), :symbolize_names => true)
-    def self.[](ind)
-      @json[ind.to_sym]
+    @config_file = ENV['HOME']+'/.couchmusic.json'
+
+    def self.hostname()
+      @hostname ||= `hostname`.strip
+    end
+
+    def self.json
+      @json ||= JSON.parse(IO.read(@config_file), :symbolize_names => true)
     end
   end
 end

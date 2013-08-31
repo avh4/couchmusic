@@ -1,3 +1,8 @@
 {
-	"db": "http://127.0.0.1:5984/couchmusic"
+  "db": "http://127.0.0.1:5984/couchmusic",
+  "libraries": {
+    "itunes": "/Users/johnsmith/Music/iTunes/iTunes Music/Music",
+    "external": "/Volumes/Music",
+    "downloads": "/Users/johnsmith/Downloads"
+  }
 }

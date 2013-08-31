@@ -3,9 +3,8 @@ require 'taglib'
 module Couchmusic
   module Data
     module BasicInfo
-      def self.gather(id)
-        hostname, file = id.split(':', 2)
-        TagLib::FileRef.open(file) do |ref|
+      def self.gather(host, filename)
+        TagLib::FileRef.open(filename) do |ref|
           tag = ref.tag
           {
             :length => ref.audio_properties.length,
