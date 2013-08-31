@@ -2,13 +2,20 @@
 
 <h3>Reports</h3>
 <form method="GET" action="_list/missing/track_identity">
-  See missing files
+  See missing tracks
   <input type="input" name="from" value="mercury"/>
   <input type="input" name="to" value="venus"/>
   <input type="submit"/>
 </form>
+<form method="GET" action="_list/missing/album_identity">
+  See missing albums
+  <input type="input" name="from" value="mercury"/>
+  <input type="input" name="to" value="venus"/>
+  <input type="hidden" name="group" value="true"/>
+  <input type="submit"/>
+</form>
 
-<h3>Albums</h3>
+<!-- <h3>Albums</h3>
 <ul id="albums"></ul>
 
 <script type="text/javascript" src="modules.js"></script>
@@ -25,4 +32,4 @@
             $('<li/>').text(data.rows[i].key).appendTo('#albums');
         }
     });
-</script>
+</script> -->

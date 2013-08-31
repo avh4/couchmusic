@@ -38,6 +38,17 @@ exports.views = {
       var library = doc._id.split(":")[0];
       emit([identifier, library], true);
     }
+  },
+
+  album_identity: {
+    map: function(doc) {
+      var identifier = [doc.artist, doc.album];
+      var library = doc._id.split(":")[0];
+      emit([identifier, library], identifier);
+    },
+    reduce: function(keys, values) {
+      return values[0];
+    }
   }
 };
 
@@ -48,7 +59,11 @@ exports.lists = {
     }
 
     function makeReport(row) {
-      return "<li>" + row.id + " (" + row.key[0].join(" - ") + ")</li>";
+      if (row.id) {
+        return "<li>" + row.id + " (" + row.key[0].join(" - ") + ")</li>";
+      } else {
+        return "<li>" + row.key[0].join(" - ") + "</li>";
+      }
     }
 
     function makeFooter() {
