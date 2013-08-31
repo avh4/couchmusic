@@ -1,0 +1,7 @@
+#!/bin/bash
+
+PORT=5984
+
+curl -s -f http://localhost:"$PORT" || ! echo "CouchDB doesn't seem to be running" || exit 1
+
+dns-sd -R "`hostname`" _couchmusic._tcp. local "$PORT"

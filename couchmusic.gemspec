@@ -10,6 +10,7 @@ Gem::Specification.new do |s|
   s.license     = 'MIT'
 
   s.executables << 'couchmusic-add'
+  s.executables << 'couchmusic-server'
 
   s.add_dependency('system_keychain', '~> 1.0')
   s.add_dependency('colorize', '~> 0.5')
