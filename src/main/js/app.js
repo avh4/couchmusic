@@ -21,14 +21,18 @@ exports.views = {
   errors: {
     map: function(doc) {
       if (doc.artist == null) {
-        emit(["Missing artist", doc._id], 1);
+        emit(["Missing artist", doc._id], doc);
       }
       if (doc.album == null) {
-        emit(["Missing album", doc._id], 1);
+        emit(["Missing album", doc._id], doc);
+      }
+      if (doc.library == null) {
+        emit(["Missing library", doc._id], doc)
       }
     },
-    reduce: function(title, count) {
-      return sum(count);
+    reduce: function(keys, values) {
+      if (keys) return keys.length;
+      else return sum(values);
     }
   },
 
@@ -123,6 +127,22 @@ exports.lists = {
         if (source == req.query.to) inTo = true;
       }
       processRow();
+    });
+  },
+
+  errors: function(head, req) {
+    provides("html", function() {
+      var lastError = null;
+      while(row = getRow()) {
+        error = row.key[0];
+        if (lastError != error) {
+          if (lastError) send('</ul>');
+          send('<h2>' + error + '</h2><ul>\n');
+          lastError = error;
+        }
+        send('<li><b>' + row.key[1] + '</b> <code>' + toJSON(row.value) + '</code></li>');
+      }
+      if (lastError) send('</ul>');
     });
   }
 };
