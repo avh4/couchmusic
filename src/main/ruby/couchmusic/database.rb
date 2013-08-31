@@ -6,7 +6,7 @@ require 'system_keychain'
 module Couchmusic
   module Database
     def self.connect(config = Couchmusic::Config)
-      url = config.json[:db]
+      url = config.json[config.hostname.to_sym][:db]
       begin
         db = CouchRest.database!(url)
       rescue StandardError

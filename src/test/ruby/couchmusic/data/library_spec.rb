@@ -2,12 +2,12 @@ require 'couchmusic/data/library'
 
 describe Couchmusic::Data::Library do
   let(:host) { 'mercury' }
-  let(:config_json) { { libraries: {
+  let(:config_json) { { mercury: { libraries: {
     'main' => '/Users/johnsmith/Music',
     'external' => '/Volumes/KINGSTON',
     'xmas' => '/Volumes/KINGSTON/Christmas'
-  } } }
-  let(:config) { double(:config, hostname: host, json: config_json) }
+  } } } }
+  let(:config) { double(:config, json: config_json) }
   subject { Couchmusic::Data::Library.new(config) }
 
   it 'should match a file in the library' do
@@ -15,8 +15,16 @@ describe Couchmusic::Data::Library do
       { library: 'main', library_path: '/01.mp3' }
   end
 
-  it 'should not match a file on a different host' do
+  it 'should not match a file on a host with no config' do
     subject.gather('venus', '/Users/johnsmith/Music/01.mp3').should == { }
+  end
+
+  context 'for a host with no libraries' do
+    let(:config_json) { { 'venus' => {} } }
+
+    it 'should not match' do
+      subject.gather('venus', '/Users/johnsmith/Music/01.mp3').should == { }
+    end
   end
 
   it 'should not match a file outside the library folder' do
@@ -34,10 +42,10 @@ describe Couchmusic::Data::Library do
   end
 
   context 'when the libraries withing other libraries are listed first' do
-    let(:config_json) { { libraries: {
+    let(:config_json) { { mercury: { libraries: {
       'xmas' => '/Volumes/KINGSTON/Christmas',
       'external' => '/Volumes/KINGSTON'
-    } } }
+    } } } }
 
     it 'should match a file in a library within another library' do
       subject.gather(host, '/Volumes/KINGSTON/Christmas/Jolly.mp3').should ==
