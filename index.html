@@ -1,6 +1,10 @@
+<!DOCTYPE html>
+<html>
 <head>
+  <link href="build/css/main.css" rel="stylesheet">
   <script type="text/javascript" src="lib/jquery-2.0.3.min.js"></script>
   <script type="text/javascript" src="lib/typeahead.min.js"></script>
+  <script type="text/javascript" src="src/main/js/bootstrap/dropdown.js"></script>
   <script type="text/javascript">
     $(document).ready(function () {
       $('input.libraries').typeahead({
@@ -14,45 +18,90 @@
     .tt-dropdown-menu p { margin: 0; }
     .tt-is-under-cursor { background: yellow; }
     .top { position: absolute; top: 0; right: 0; background: white; border: 1px solid black; }
+    .twitter-typeahead { width: 100%; }
   </style>
 </head>
 
 <body>
-<h1>CouchMusic</h1>
+<div class="container">
+  <nav class="navbar navbar-default" role="navigation">
+    <div class="navbar-header">
+      <a class="navbar-brand">CouchMusic</a>
+    </div>
+    
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reports <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="_list/errors/errors?reduce=false">Missing data report</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">Missing tracks</div>
+        <div class="panel-body">
+          <form method="GET" action="_list/missing/track_identity">
+            <div class="row">
+              <div class="col-sm-5">
+                <input class="form-control libraries" type="text" name="from" placeholder="from"/>
+              </div>
+              <div class="col-sm-5">
+                <input class="form-control libraries" type="text" name="to" placeholder="to"/>
+              </div>
+              <div class="col-sm-2">
+                <button class="btn btn-default" type="submit">Find</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">Missing albums</div>
+        <div class="panel-body">
+          <form method="GET" action="_list/missing/album_identity">
+            <div class="row">
+              <div class="col-sm-5">
+                <input class="form-control libraries" type="text" name="from" placeholder="from"/>
+              </div>
+              <div class="col-sm-5">
+                <input class="form-control libraries" type="text" name="to" placeholder="to"/>
+              </div>
+              <div class="col-sm-2">
+                <button class="btn btn-default" type="submit">Find</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 
-<h3>Reports</h3>
-<p><a href="_list/errors/errors?reduce=false">Error (missing data) report</a></p>
-<form method="GET" action="_list/missing/track_identity">
-  See missing tracks
-  <input class="libraries" type="text" name="from"/>
-  <input class="libraries" type="text" name="to"/>
-  <input type="submit"/>
-</form>
-<form method="GET" action="_list/missing/album_identity">
-  See missing albums
-  <input class="libraries" type="text" name="from"/>
-  <input class="libraries" type="text" name="to"/>
-  <input type="hidden" name="group" value="true"/>
-  <input type="submit"/>
-</form>
+  <!-- <h3>Albums</h3>
+  <ul id="albums"></ul>
 
-<!-- <h3>Albums</h3>
-<ul id="albums"></ul>
+  <script type="text/javascript" src="modules.js"></script>
+  <script type="text/javascript">
+      var db = require('db').current();
+      var $ = require('jquery');
 
-<script type="text/javascript" src="modules.js"></script>
-<script type="text/javascript">
-    var db = require('db').current();
-    var $ = require('jquery');
-
-    db.getView('couchmusic', 'albums', {group: true}, function (err, data) {
-        if (err) {
-            // an error occurred
-            return alert(err);
-        }
-        for (var i = 0; i < data.rows.length; i++) {
-            $('<li/>').text(data.rows[i].key).appendTo('#albums');
-        }
-    });
-</script> -->
-
+      db.getView('couchmusic', 'albums', {group: true}, function (err, data) {
+          if (err) {
+              // an error occurred
+              return alert(err);
+          }
+          for (var i = 0; i < data.rows.length; i++) {
+              $('<li/>').text(data.rows[i].key).appendTo('#albums');
+          }
+      });
+  </script> -->
+</div>
 </body>
+</html>

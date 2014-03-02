@@ -5,7 +5,11 @@
     "attachments": [
       "index.html",
       "lib/jquery-2.0.3.min.js",
-      "lib/typeahead.min.js"
+      "lib/typeahead.min.js",
+			"build/css/main.css",
+			"build/css/main.css.map",
+			"src/main/js/bootstrap/dropdown.js",
+			"scratch.html"
     ],
     "modules": ["src/main/js"],
     "load": "src/main/js/app",

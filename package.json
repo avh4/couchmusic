@@ -1,0 +1,23 @@
+{
+  "name": "couchmusic",
+  "version": "0.0.0",
+  "description": "Put on some music.  Relax.",
+  "dependencies": {},
+  "devDependencies": {
+    "uglifyjs": "~2.3.6",
+    "less": "~1.7.0"
+  },
+  "scripts": {
+    "test": "rake"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/avh4/couchmusic.git"
+  },
+  "author": "Aaron VonderHaar <gruen0aermel@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/avh4/couchmusic/issues"
+  },
+  "homepage": "https://github.com/avh4/couchmusic"
+}

@@ -20,8 +20,15 @@ task :test do
 end
 
 desc "Deploy locally"
-task :deploy do
+task :deploy => ['css:compile'] do
   sh "kanso push #{LOCAL_DB}"
+end
+
+namespace :css do
+  desc "Compile CSS"
+  task :compile do
+    sh "./node_modules/.bin/lessc --source-map --compress --verbose src/main/less/main.less  build/css/main.css"
+  end
 end
 
 namespace :scratch do
