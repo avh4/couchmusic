@@ -71,7 +71,7 @@ exports.lists = {
   typeahead: function(head, req) {
     var c = '[';
     while(row = getRow()) {
-      send(c + toJSON(row.key));
+      send(c + toJSON(row));
       c = ',';
     }
     send(']');

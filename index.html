@@ -2,21 +2,28 @@
 <html>
 <head>
   <link href="build/css/main.css" rel="stylesheet">
-  <script type="text/javascript" src="lib/jquery-2.0.3.min.js"></script>
-  <script type="text/javascript" src="lib/typeahead.min.js"></script>
+  <script type="text/javascript" src="lib/jquery-2.1.0.min.js"></script>
   <script type="text/javascript" src="src/main/js/bootstrap/dropdown.js"></script>
+  <script type="text/javascript" src="lib/typeahead-0.10.1.min.js"></script>
   <script type="text/javascript">
     $(document).ready(function () {
-      $('input.libraries').typeahead({
+      var libraries = new Bloodhound({
+        datumTokenizer: function(d) { return Bloodhound.tokenizers.whitespace(d.key); },
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        prefetch: { url: '_list/typeahead/libraries?group=true' }
+      });
+      libraries.initialize();
+      
+      $('input.libraries').typeahead(null, {
         name: 'libraries',
-        prefetch: '_list/typeahead/libraries?group=true'
+        displayKey: 'key',
+        source: libraries.ttAdapter()
       });
     });
   </script>
   <style>
-    .tt-dropdown-menu { width: 100%; background: gray; }
+    .tt-dropdown-menu { width: 100%; }
     .tt-dropdown-menu p { margin: 0; }
-    .tt-is-under-cursor { background: yellow; }
     .top { position: absolute; top: 0; right: 0; background: white; border: 1px solid black; }
     .twitter-typeahead { width: 100%; }
   </style>
